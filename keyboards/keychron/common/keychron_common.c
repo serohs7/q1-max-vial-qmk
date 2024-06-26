@@ -104,7 +104,7 @@ void keychron_common_task(void) {
 #ifdef ENCODER_ENABLE
 static void encoder0_pad_cb(void *param) {
     (void)param;
-    encoder_inerrupt_read(0);
+    encoder_quadrature_inerrupt_read(0);
 }
 
 void encoder_cb_init(void) {

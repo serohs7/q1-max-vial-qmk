@@ -25,10 +25,6 @@
 #include "color.h"
 #include "keyboard.h"
 
-#if defined(RGB_MATRIX_SNLED27351_SPI)
-#    include "snled27351-spi.h"
-#endif
-
 #ifndef RGB_MATRIX_TIMEOUT
 #    define RGB_MATRIX_TIMEOUT 0
 #endif
@@ -276,23 +272,6 @@ bool rgb_matrix_driver_allow_shutdown(void);
 #    define rgblight_decrease_speed rgb_matrix_decrease_speed
 #    define rgblight_decrease_speed_noeeprom rgb_matrix_decrease_speed_noeeprom
 #endif
-
-typedef struct {
-    /* Perform any initialisation required for the other driver functions to work. */
-    void (*init)(void);
-    /* Set the colour of a single LED in the buffer. */
-    void (*set_color)(int index, uint8_t r, uint8_t g, uint8_t b);
-    /* Set the colour of all LEDS on the keyboard in the buffer. */
-    void (*set_color_all)(uint8_t r, uint8_t g, uint8_t b);
-    /* Flush any buffered changes to the hardware. */
-    void (*flush)(void);
-#ifdef RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
-    /* Shutdown the driver. */
-    void (*shutdown)(void);
-    /* Exit from shutdown state. */
-    void (*exit_shutdown)(void);
-#endif
-} rgb_matrix_driver_t;
 
 static inline bool rgb_matrix_check_finished_leds(uint8_t led_idx) {
 #if defined(RGB_MATRIX_SPLIT)
