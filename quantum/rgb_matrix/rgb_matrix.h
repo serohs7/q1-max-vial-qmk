@@ -21,31 +21,12 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "rgb_matrix_types.h"
+#include "rgb_matrix_drivers.h"
 #include "color.h"
 #include "keyboard.h"
 
-#if defined(RGB_MATRIX_IS31FL3218)
-#    include "is31fl3218.h"
-#elif defined(RGB_MATRIX_IS31FL3731)
-#    include "is31fl3731.h"
-#elif defined(RGB_MATRIX_IS31FL3733)
-#    include "is31fl3733.h"
-#elif defined(RGB_MATRIX_IS31FL3736)
-#    include "is31fl3736.h"
-#elif defined(RGB_MATRIX_IS31FL3737)
-#    include "is31fl3737.h"
-#elif defined(RGB_MATRIX_IS31FL3741)
-#    include "is31fl3741.h"
-#elif defined(IS31FLCOMMON)
-#    include "is31flcommon.h"
-#elif defined(RGB_MATRIX_SNLED27351)
-#    include "snled27351.h"
-#elif defined(RGB_MATRIX_SNLED27351_SPI)
+#if defined(RGB_MATRIX_SNLED27351_SPI)
 #    include "snled27351-spi.h"
-#elif defined(RGB_MATRIX_AW20216S)
-#    include "aw20216s.h"
-#elif defined(RGB_MATRIX_WS2812)
-#    include "ws2812.h"
 #endif
 
 #ifndef RGB_MATRIX_TIMEOUT
@@ -99,6 +80,10 @@
 
 #ifndef RGB_MATRIX_DEFAULT_SPD
 #    define RGB_MATRIX_DEFAULT_SPD UINT8_MAX / 2
+#endif
+
+#ifndef RGB_MATRIX_DEFAULT_FLAGS
+#    define RGB_MATRIX_DEFAULT_FLAGS LED_FLAG_ALL
 #endif
 
 #ifndef RGB_MATRIX_LED_FLUSH_LIMIT
@@ -320,8 +305,6 @@ static inline bool rgb_matrix_check_finished_leds(uint8_t led_idx) {
     return led_idx < RGB_MATRIX_LED_COUNT;
 #endif
 }
-
-extern const rgb_matrix_driver_t rgb_matrix_driver;
 
 extern rgb_config_t rgb_matrix_config;
 
